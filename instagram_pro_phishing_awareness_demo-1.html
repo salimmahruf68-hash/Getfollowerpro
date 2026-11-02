@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instagram Pro — Phishing Awareness Demo</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:24px 14px;color:#fff;font-family:Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at 18% 18%,#e02b83 0,transparent 38%),
+             radial-gradient(circle at 85% 80%,#59228f 0,transparent 45%),
+             linear-gradient(145deg,#c5227d,#9a2c9d 52%,#48206f);
+}
+.demo-tag{position:fixed;top:12px;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.35);
+  border-radius:20px;padding:7px 12px;font-size:11px;letter-spacing:.5px;
+  white-space:nowrap;z-index:2}
+.card{
+  width:min(100%,470px);min-height:590px;padding:48px 28px 34px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;border:2px solid rgba(255,255,255,.22);border-radius:38px;
+  background:linear-gradient(145deg,rgba(255,255,255,.20),rgba(255,255,255,.08));
+  box-shadow:0 22px 70px rgba(35,0,50,.28),inset 0 1px 1px rgba(255,255,255,.2);
+  backdrop-filter:blur(14px)
+}
+h1{font-size:clamp(35px,9vw,54px);line-height:1.08;margin:0 0 42px;font-weight:800}
+h2{font-size:30px;margin:0 0 20px}
+.subtitle{font-size:20px;line-height:1.55;opacity:.92;margin:0 0 44px}
+button{
+  width:100%;border:0;border-radius:18px;padding:20px 16px;color:#fff;
+  font-weight:700;font-size:19px;cursor:pointer;
+  background:linear-gradient(100deg,#ff315b,#ff542e);
+  box-shadow:0 8px 24px rgba(255,48,80,.28)
+}
+button:focus,input:focus{outline:3px solid rgba(255,255,255,.7);outline-offset:3px}
+.secure{font-size:13px;letter-spacing:.5px;font-weight:bold;margin-top:34px;opacity:.85}
+form{width:100%;background:rgba(85,24,116,.23);padding:24px 18px;border-radius:24px}
+input{display:block;width:100%;margin:0 0 18px;padding:19px 16px;border-radius:17px;
+  border:2px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);
+  color:#fff;font-size:17px;text-align:left}
+input::placeholder{color:rgba(255,255,255,.78)}
+.note{font-size:12px;line-height:1.45;opacity:.82;margin:14px 2px 0}
+.hidden{display:none!important}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);display:flex;
+  align-items:center;justify-content:center;padding:22px;z-index:5}
+.dialog{width:min(100%,420px);background:#fff;color:#222;border-radius:28px;
+  padding:26px 24px 18px;box-shadow:0 20px 60px rgba(0,0,0,.35);text-align:left}
+.dialog .domain{font-size:18px;margin:0 0 28px;color:#333}
+.dialog p{font-size:17px;line-height:1.5;margin:0 0 28px}
+.dialog button{width:auto;min-width:76px;float:right;background:transparent;
+  color:#2876b9;box-shadow:none;padding:10px 14px;font-size:16px}
+.awareness{font-size:15px;line-height:1.55;background:rgba(30,0,45,.22);
+  padding:18px;border-radius:18px;margin-top:18px;text-align:left}
+@media(max-height:720px){.card{min-height:0;padding:34px 22px}.subtitle{margin-bottom:28px}h1{margin-bottom:28px}}
+</style>
+</head>
+<body>
+<div class="demo-tag">CLASSROOM AWARENESS DEMO • NO DATA IS SAVED</div>
+
+<main class="card" id="welcome">
+  <h1>INSTAGRAM<br>PRO</h1>
+  <h2>Welcome</h2>
+  <p class="subtitle">Get real Instagram followers<br>instantly!</p>
+  <button id="start">Get Started</button>
+  <div class="secure">🔒 SECURED BY TRACK KNOW 🔒</div>
+</main>
+
+<main class="card hidden" id="login">
+  <h1>INSTAGRAM<br>PRO</h1>
+  <h2>1000+<br>Followers</h2>
+  <form id="demoForm" autocomplete="off">
+    <input id="username" type="text" placeholder="Enter username (demo only)" autocomplete="off">
+    <input id="password" type="password" placeholder="Demo password — never use a real one" autocomplete="new-password">
+    <button type="submit">Get 1000+ Followers Now!</button>
+    <p class="note">Training simulation only. Do not enter real Instagram credentials.</p>
+  </form>
+  <div class="secure">🔒 SECURED BY TRACK KNOW 🔒</div>
+</main>
+
+<main class="card hidden" id="lesson">
+  <h1>PHISHING<br>ALERT</h1>
+  <h2>Don't fall for it!</h2>
+  <p class="subtitle">Free followers are a common bait used in phishing scams.</p>
+  <div class="awareness">
+    <b>Remember:</b><br>
+    • Never enter your password on an unknown website.<br>
+    • Check the website address carefully.<br>
+    • Instagram will never ask for your password to give free followers.<br>
+    • Use two-factor authentication.
+  </div>
+  <div class="secure">THIS WAS A SAFE CLASSROOM SIMULATION</div>
+</main>
+
+<div class="overlay hidden" id="popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+  <div class="dialog">
+    <div class="domain" id="popupTitle">trackknow.rf.gd says</div>
+    <p>✅ 1000+ Followers has been sent to your account!</p>
+    <button id="ok">OK</button>
+    <div style="clear:both"></div>
+  </div>
+</div>
+
+<script>
+const welcome=document.getElementById('welcome');
+const login=document.getElementById('login');
+const lesson=document.getElementById('lesson');
+const popup=document.getElementById('popup');
+document.getElementById('start').addEventListener('click',()=>{
+  welcome.classList.add('hidden'); login.classList.remove('hidden');
+});
+document.getElementById('demoForm').addEventListener('submit',(event)=>{
+  event.preventDefault();
+  // Deliberately do not read, store, log, or transmit either field.
+  popup.classList.remove('hidden');
+});
+document.getElementById('ok').addEventListener('click',()=>{
+  popup.classList.add('hidden'); login.classList.add('hidden'); lesson.classList.remove('hidden');
+  document.getElementById('username').value='';
+  document.getElementById('password').value='';
+});
+</script>
+</body>
+</html>
